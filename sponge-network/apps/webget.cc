@@ -3,22 +3,24 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <address.hh>
+#include <socket.hh>
 
 using namespace std;
 
 void get_URL(const string &host, const string &path) {
-    // Your code here.
-
-    // You will need to connect to the "http" service on
-    // the computer whose name is in the "host" string,
-    // then request the URL path given in the "path" string.
-
-    // Then you'll need to print out everything the server sends back,
-    // (not just one call to read() -- everything) until you reach
-    // the "eof" (end of file).
-
-    cerr << "Function called: get_URL(" << host << ", " << path << ").\n";
-    cerr << "Warning: get_URL() has not been implemented yet.\n";
+    TCPSocket socket{};
+    const Address addr(host, "http");
+    socket.connect(addr);
+    socket.write("GET " + path + " HTTP/1.1\r\n");
+    socket.write("Host: " + host + " \r\n");
+    socket.write("Connection: close \r\n\r\n");
+    string these = socket.read();
+    while (!socket.eof()) {
+        string recvd = socket.read();
+        cout << recvd;
+    }
+    socket.shutdown(2);
 }
 
 int main(int argc, char *argv[]) {
