@@ -10,6 +10,6 @@
 
 
 ### Lab:
-- 0 : 
+- 0
     - [a mini TCP Socket to fetch web](https://github.com/duongphannamhung/sponge_network/blob/main/sponge-network/apps/webget.cc)
     - [single-thread bytestream](https://github.com/duongphannamhung/sponge_network/blob/main/sponge-network/libsponge/byte_stream.cc)
