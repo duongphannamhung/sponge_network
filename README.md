@@ -1,12 +1,12 @@
 # sponge_network
 
-- This is a space of my self-learning Computer Network from CS144 (Standford). Currently the main git page of class is down or get private.
-- ❗️The custom_network folder is mine, any other intellectual property is not owned by me. I disclaim all liability. If you intend to use it, please use it carefully. 
+- This is a space of my self-learning Computer Network from CS144 (Standford). Currently the main git page of class is down or got private.
+- ❗️The original sponge is from https://github.com/vikshanker/sponge. I custom it onto doing lab. I disclaim all liability. If you intend to use it, please use it carefully. 
 - Inbox if you need more resources relevant.
 
 ### References:
 - [Assignment/Labs Handouts](https://github.com/PKUFlyingPig/CS144-Computer-Network/tree/master/lab_handouts)
-- [Sponge Documentation](https://kangyupl.gitee.io/cs144.github.io/doc/)
+- [Sponge Documentation](https://kangyupl.gitee.io/cs144.github.io/doc/lab0/annotated.html)
 
 ## Lab Workthrough:
 ### Lab 0:
