@@ -19,7 +19,7 @@ static void _test_should_be(const T &actual,
     if (actual != expected) {
         std::ostringstream ss;
         ss << "`" << actual_s << "` should have been `" << expected_s << "`, but the former is\n\t" << to_string(actual)
-           << "\nand the latter is\n\t" << to_string(expected) << "\n"
+           << "\nand the latter is\n\t" << to_string(expected) << " (difference of " << expected - actual << ")\n"
            << " (at line " << lineno << ")\n";
         throw std::runtime_error(ss.str());
     }
