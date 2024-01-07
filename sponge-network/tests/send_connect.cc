@@ -19,6 +19,7 @@ int main() {
             TCPConfig cfg;
             WrappingInt32 isn(rd());
             cfg.fixed_isn = isn;
+
             TCPSenderTestHarness test{"SYN sent test", cfg};
             test.execute(ExpectState{TCPSenderStateSummary::SYN_SENT});
             test.execute(ExpectSegment{}.with_no_flags().with_syn(true).with_payload_size(0).with_seqno(isn));
