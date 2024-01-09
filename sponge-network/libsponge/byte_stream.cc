@@ -1,5 +1,6 @@
 #include "byte_stream.hh"
 #include <vector>
+#include <iostream>
 
 // Dummy implementation of a flow-controlled in-memory byte stream.
 
@@ -21,6 +22,7 @@ size_t ByteStream::write(const string &data) {
         return 0;
       }
 
+      // std::cout << "Data: " << data << std::endl; 
       const size_t length = std::min(data.length(), remaining_capacity());
 
       for (size_t i = 0 ; i < length; i++) {
