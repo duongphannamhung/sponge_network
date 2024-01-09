@@ -5,15 +5,22 @@
 
 #include <cstdint>
 #include <string>
+#include <map>
+#include <vector>
 
 //! \brief A class that assembles a series of excerpts from a byte stream (possibly out of order,
 //! possibly overlapping) into an in-order byte stream.
 class StreamReassembler {
   private:
     // Your code here -- add private members as necessary.
+    std::map<size_t, std::string> _map {};
 
     ByteStream _output;  //!< The reassembled in-order byte stream
     size_t _capacity;    //!< The maximum number of bytes
+
+    size_t _eof_index;
+    size_t _curr_index;
+    size_t _count_unassb_bytes;
 
   public:
     //! \brief Construct a `StreamReassembler` that will store up to `capacity` bytes.
@@ -30,6 +37,7 @@ class StreamReassembler {
     //! \param index indicates the index (place in sequence) of the first byte in `data`
     //! \param eof the last byte of `data` will be the last byte in the entire stream
     void push_substring(const std::string &data, const uint64_t index, const bool eof);
+    void handle_out_of_capacity(const std::string &data);
 
     //! \name Access the reassembled byte stream
     //!@{
@@ -37,6 +45,12 @@ class StreamReassembler {
     ByteStream &stream_out() { return _output; }
     //!@}
 
+    void check_capacity(std::string &write_data);
+    size_t check_write_duplicate(std::size_t &write_index, std::string &write_data, const size_t& curr_index);
+    void recheck_aux_map_after_add(const size_t& curr_index);
+    std::vector<std::size_t> sorted_key_map(bool ascending);
+
+    size_t curr_index() const { return _curr_index; }
     //! The number of bytes in the substrings stored but not yet reassembled
     //!
     //! \note If the byte at a particular index has been pushed more than once, it

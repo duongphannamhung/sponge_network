@@ -12,6 +12,8 @@
 #include <utility>
 #include <vector>
 
+#include <iostream>
+
 using namespace std;
 
 static constexpr unsigned NREPS = 32;
@@ -49,6 +51,11 @@ int main() {
             }
 
             auto result = read(buf);
+
+            std::cout << "[DEBUG on TEST 1a] buf stream_out bytes: " << buf.stream_out().bytes_written() << "\b\n";
+            std::cout << "[DEBUG on TEST 1b] offset: " << offset << "\b\n";
+            // std::cout << "[DEBUG on TEST 2] result.cbegin(): " << result.cbegin() << " || result.end()" << result.end() << " || d.cbegin(): " << d.cbegin() << "\b\n\n";
+
             if (buf.stream_out().bytes_written() != offset) {  // read bytes
                 throw runtime_error("test 2 - number of RX bytes is incorrect");
             }
