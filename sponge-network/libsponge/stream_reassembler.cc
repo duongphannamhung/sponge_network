@@ -1,7 +1,8 @@
 #include "stream_reassembler.hh"
+
+#include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
-#include <bits/stdc++.h>
 
 // Dummy implementation of a stream reassembler.
 
@@ -15,13 +16,8 @@ void DUMMY_CODE(Targs &&... /* unused */) {}
 
 using namespace std;
 
-StreamReassembler::StreamReassembler(const size_t capacity) : 
-    _output(capacity), 
-    _capacity(capacity),
-    _eof_index(-1),
-    _curr_index(0),
-    _count_unassb_bytes(0)
-    {}
+StreamReassembler::StreamReassembler(const size_t capacity)
+    : _output(capacity), _capacity(capacity), _eof_index(-1), _curr_index(0), _count_unassb_bytes(0) {}
 
 //! \details This function accepts a substring (aka a segment) of bytes,
 //! possibly out-of-order, from the logical stream, and assembles any newly
@@ -30,9 +26,10 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
     // if (data.size() > 1000 || _output.buffer_size() > 100) {
     //     std::cout << "too long, by pass" << "\b\n";
     // } else {
-    //     std::cout << "$$$ $$$ Base data: " << data << " || index: " << index << " || eof: " << eof << " || curr_index: " << _curr_index << "\b\n\n";
+    //     std::cout << "$$$ $$$ Base data: " << data << " || index: " << index << " || eof: " << eof << " ||
+    //     curr_index: " << _curr_index << "\b\n\n";
     // }
- 
+
     // if eof -> eof_index = index + data.size();
     if (eof) {
         _eof_index = index + data.size();
@@ -47,7 +44,7 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
     //     return;
     // }
     // std::cout << write_data << "\b\n";
-    
+
     // check_capacity(write_index, write_data, _curr_index);
     // std::cout << "write_data stage 2: " << write_data << "\b\n";
 
@@ -83,7 +80,8 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
 
         _output.write(_map[temp_index]);
 
-        // std::cout << "Written data: " << _map[temp_index] << " || old_index: " << temp_index << " || new_index: " << _curr_index << "\b\n";
+        // std::cout << "Written data: " << _map[temp_index] << " || old_index: " << temp_index << " || new_index: " <<
+        // _curr_index << "\b\n";
         _map.erase(temp_index);
     }
 
@@ -97,7 +95,7 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
 //     // reflush the aux_map
 //     for (auto i = _map.begin(); i != _map.end(); ++i) {
 //         size_t key = i->first;
-//         string value = i->second;        
+//         string value = i->second;
 //         std::cout << "curr_index: " << _curr_index << " ### key: " << key << " ### value: " << value << "\b\n";
 
 //         _map.erase(key);
@@ -116,7 +114,7 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
 // void StreamReassembler::check_aux_map() {
 //     // if data size + aux_map size + buffer_size > capacity -> truncate the tail -> return data
 //     if (write_data.size() + _count_unassb_bytes + _output.buffer_size() > _capacity) {
-//         // truncate the 
+//         // truncate the
 //         // write_data = write_data.substr(0, _capacity - _output.buffer_size() - _count_unassb_bytes);
 //         update_aux_map();
 //         if (write_data.size() + _count_unassb_bytes + _output.buffer_size() > _capacity) {
@@ -125,7 +123,7 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
 //     }
 // }
 
-size_t StreamReassembler::check_write_duplicate(size_t& write_index, string& write_data, const size_t& curr_index) {
+size_t StreamReassembler::check_write_duplicate(size_t &write_index, string &write_data, const size_t &curr_index) {
     // cut the head if it's duplicated
     // if index < curr_index && index + data size > curr_index -> truncate the head -> return data
     size_t new_index = curr_index;
@@ -147,13 +145,13 @@ size_t StreamReassembler::check_write_duplicate(size_t& write_index, string& wri
     return new_index;
 }
 
-void StreamReassembler::recheck_aux_map_after_add(const size_t& curr_index) {  
+void StreamReassembler::recheck_aux_map_after_add(const size_t &curr_index) {
     vector<size_t> list_key = sorted_key_map(true);
     size_t max_index = curr_index;
 
     // std::cout << "List key size: " << list_key.size() << "|| map size: " << _map.size() << "\b\n";
     // check head already write
-    for (size_t i = 0 ; i < list_key.size(); i++) {
+    for (size_t i = 0; i < list_key.size(); i++) {
         size_t key = list_key[i];
         string value = _map[key];
         // std::cout << "[debug] stage 1: key: " << key << " || value: " << value << "\b\n";
@@ -191,25 +189,26 @@ void StreamReassembler::recheck_aux_map_after_add(const size_t& curr_index) {
 std::vector<size_t> StreamReassembler::sorted_key_map(bool ascending) {
     std::vector<size_t> list_key;
     for (auto i = _map.begin(); i != _map.end(); i++) {
-        list_key.push_back(i->first);    
+        list_key.push_back(i->first);
     }
-    
+
     if (ascending) {
-        std::sort(list_key.begin(), list_key.end()); 
+        std::sort(list_key.begin(), list_key.end());
     } else {
         std::sort(list_key.begin(), list_key.end(), greater<size_t>());
     }
     return list_key;
 }
 
-void StreamReassembler::check_capacity(string& write_data) {
+void StreamReassembler::check_capacity(string &write_data) {
     // // if data size + index - curr_index > capacity -> truncate the tail -> return data
     // if (write_data.size() + write_index - curr_index > _capacity) {
     //     // truncate the tail
     //     write_data = write_data.substr(0, _capacity + curr_index - write_index);
     // }
 
-    // std::cout << "In check capacity: write_data size: " << write_data.size() << " || _count_unassb: " << _count_unassb_bytes << " || buffer size: " << _output.buffer_size() << "\b\n";
+    // std::cout << "In check capacity: write_data size: " << write_data.size() << " || _count_unassb: " <<
+    // _count_unassb_bytes << " || buffer size: " << _output.buffer_size() << "\b\n";
     if (write_data.size() + _count_unassb_bytes + _output.buffer_size() > _capacity) {
         // truncate
         write_data = write_data.substr(0, _capacity - _output.buffer_size() - _count_unassb_bytes);
@@ -220,7 +219,7 @@ void StreamReassembler::check_capacity(string& write_data) {
 //     string temp;
 //     int i = 0;
 //     while (_output.bytes_written() < _capacity) {
-//         temp += data[i];   
+//         temp += data[i];
 //         i++;
 //     }
 //     _output.write(temp);
@@ -238,7 +237,7 @@ bool StreamReassembler::empty() const { return _map.empty(); }
 //     }
 
 //     // if (_output.buffer_size() + data.size() + unassembled_bytes() > _capacity) {
-        
+
 //     //     return;
 //     // }
 
@@ -256,9 +255,8 @@ bool StreamReassembler::empty() const { return _map.empty(); }
 //                     // _output.write(_map[_curr_index]);
 //                     // std::cout << "index: " << _curr_index << " || current value " << _map[_curr_index] << "\b\n";
 //                     _count_unassb_bytes -= _map[_curr_index].size();
-//                     // std:: cout << "size: " << _map[_curr_index].length() << " curr index after + curr size " << _curr_index << "\b\n";
-//                     size_t _temp = _curr_index;
-//                     _curr_index += _map[_curr_index].size();
+//                     // std:: cout << "size: " << _map[_curr_index].length() << " curr index after + curr size " <<
+//                     _curr_index << "\b\n"; size_t _temp = _curr_index; _curr_index += _map[_curr_index].size();
 //                     _map.erase(_temp);
 //                 }
 //             }

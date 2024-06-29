@@ -17,7 +17,7 @@ class ByteStream {
     // all, but if any of your tests are taking longer than a second,
     // that's a sign that you probably want to keep exploring
     // different approaches.
-    
+
     size_t _size = 0;
     int _capacity = 0;
     size_t _bytes_written_count = 0;
@@ -30,8 +30,8 @@ class ByteStream {
 
     size_t _write_ptr = 0;
     size_t _read_ptr = 0;
-    void set_write_ptr(size_t size) { _write_ptr = (_write_ptr + size) % std::max(_capacity,1); }
-    void set_read_ptr(size_t size) { _read_ptr = (_read_ptr + size) % std::max(_capacity,1); }
+    void set_write_ptr(size_t size) { _write_ptr = (_write_ptr + size) % std::max(_capacity, 1); }
+    void set_read_ptr(size_t size) { _read_ptr = (_read_ptr + size) % std::max(_capacity, 1); }
 
   public:
     //! Construct a stream with room for `capacity` bytes.
