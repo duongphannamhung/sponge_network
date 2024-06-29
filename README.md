@@ -8,6 +8,8 @@
 - lab0:
     - [a mini TCP Socket to fetch web](https://github.com/duongphannamhung/sponge_network/blob/main/sponge-network/apps/webget.cc)
     - [single-thread bytestream](https://github.com/duongphannamhung/sponge_network/blob/main/sponge-network/libsponge/byte_stream.cc)
+- lab1:
+    - [stitching substrings into a byte stream](https://github.com/duongphannamhung/sponge_network/blob/main/sponge-network/libsponge/stream_reassembler.cc)
 
 ### References:
 - [Handout](https://kangyupl.gitee.io/cs144.github.io)
