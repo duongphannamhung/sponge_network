@@ -6,3 +6,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`--slave /usr/bin/g++ g++ /usr/bin/g++-8`
 -> Remember to export or config `CC` and `CXX` on running `cmake`
 - On the last exercise, init private on h++ file and method on c++. I feel this lab is hard to understand at first but easier to implement than the ex 3.
+### Lab 1: Stitching substrings into a byte stream
+- sponge/libsponge/stream_reassembler.cc
+- sponge/libsponge/stream_reassembler.hh

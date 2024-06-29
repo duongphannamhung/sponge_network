@@ -4,8 +4,8 @@
 #include "byte_stream.hh"
 
 #include <cstdint>
-#include <string>
 #include <map>
+#include <string>
 #include <vector>
 
 //! \brief A class that assembles a series of excerpts from a byte stream (possibly out of order,
@@ -13,7 +13,7 @@
 class StreamReassembler {
   private:
     // Your code here -- add private members as necessary.
-    std::map<size_t, std::string> _map {};
+    std::map<size_t, std::string> _map{};
 
     ByteStream _output;  //!< The reassembled in-order byte stream
     size_t _capacity;    //!< The maximum number of bytes
@@ -46,8 +46,8 @@ class StreamReassembler {
     //!@}
 
     void check_capacity(std::string &write_data);
-    size_t check_write_duplicate(std::size_t &write_index, std::string &write_data, const size_t& curr_index);
-    void recheck_aux_map_after_add(const size_t& curr_index);
+    size_t check_write_duplicate(std::size_t &write_index, std::string &write_data, const size_t &curr_index);
+    void recheck_aux_map_after_add(const size_t &curr_index);
     std::vector<std::size_t> sorted_key_map(bool ascending);
 
     size_t curr_index() const { return _curr_index; }
